@@ -14,9 +14,9 @@ let timetostart = 0
 let Zmovement = 0
 let advertise = false
 let movement = false
+let timetostop = 0
 
 basic.forever(() => {
-    movement = false
     Zmovement = input.acceleration(Dimension.Z)
     Xmovement = input.acceleration(Dimension.X)
     Ymovement = input.acceleration(Dimension.Y)
@@ -60,22 +60,23 @@ basic.forever(() => {
         }
     }
     if (movement) {
+        movement = false
         now1 = input.runningTime()
-        if (now1 > now + timetostart * 1000 * 60) {
+        if (now1 > now + timetostart) {
             if (washcycle == 0) {
                 washcycle = 1
             }
         }
     } else {
         now = input.runningTime()
-        if (now > now1 + timetoend * 1000 * 60) {
+        if (now > now1 + timetoend) {
             if (washcycle == 1) {
                 washcycle = 2
             }
         }
 
         if (washcycle == 2) {
-            if (now > now1 + 2 * 1000 * 60) {
+            if (now > now1 + timetostop) {
                 washcycle = 0
                 basic.clearScreen()
             }
@@ -104,9 +105,10 @@ bluetooth.onBluetoothDisconnected(() => {
 
 })
 advertise = false
-timetostart = 2
-timetoend = 15
-Zthreshold = 20
-Ythreshold = 20
-Xthreshold = 20
+timetostart = 5000
+timetoend = 15 * 1000 * 60
+timetostop = 1 * 1000 * 60
+Zthreshold = 18
+Ythreshold = 18
+Xthreshold = 18
 bluetooth.stopAdvertising()
