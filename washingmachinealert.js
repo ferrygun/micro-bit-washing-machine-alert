@@ -106,7 +106,7 @@ bluetooth.onBluetoothDisconnected(() => {
 })
 advertise = false
 timetostart = 5000
-timetoend = 15 * 1000 * 60
+timetoend = 5 * 1000 * 60
 timetostop = 1 * 1000 * 60
 Zthreshold = 18
 Ythreshold = 18
