@@ -73,6 +73,14 @@ basic.forever(() => {
         if (now1 > now + timetostart) {
             if (washcycle == 0) {
                 washcycle = 1 // cycle started
+                if (advertise == 0) {
+                    advertise = 1
+                    bluetooth.advertiseUrl(
+                        "https://makecode.com",
+                        7,
+                        false
+                    )
+                }
             }
         }
     } else {
@@ -101,14 +109,6 @@ basic.forever(() => {
             . . . . .
             . . . . .
             `)
-        if (advertise == 0) {
-            advertise = 1
-            bluetooth.advertiseUrl(
-                "https://makecode.com",
-                7,
-                false
-            )
-        }
     }
     if (washcycle == 2) {
         basic.showLeds(`
@@ -120,10 +120,11 @@ basic.forever(() => {
             `)
     }
 })
+washcycle = 0
 advertise = 0
-timetostart = 5000 // threshold when the cycle will start
-timetoend = 8 * 1000 * 60 //threshold when the cycle will stop
-timetostop = 1 * 1000 * 60 /// threshold when to reset to initial stage
+timetostart = 5000
+timetoend = 8 * 1000 * 60
+timetostop = 1 * 1000 * 60
 Zthreshold = 18
 Ythreshold = 18
 Xthreshold = 18
